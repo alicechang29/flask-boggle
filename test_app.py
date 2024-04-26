@@ -1,5 +1,5 @@
 from unittest import TestCase
-import json
+import random
 
 from app import app, games
 
@@ -39,3 +39,48 @@ class BoggleAppTestCase(TestCase):
             self.assertIsInstance(data["board"], list)
             self.assertIsNotNone(data["gameId"])
             self.assertIsNotNone(data["board"])
+
+    def test_api_invalid_word(self):
+        """Testing for invalid word"""
+
+        with app.test_client() as client:
+            random.seed(1)
+            game_data_resp = client.post("/api/new-game")
+            game_data = game_data_resp.get_json()
+            data = client.post('/api/score-word', json={
+                "gameId": game_data["gameId"],
+                "word": "OOTY"
+            })
+            resp = data.get_json()
+
+        self.assertEqual({'result': 'not-word'}, resp)
+
+    def test_api_valid_word(self):
+        """Testing for a valid word"""
+
+        with app.test_client() as client:
+            random.seed(1)
+            game_data_resp = client.post("/api/new-game")
+            game_data = game_data_resp.get_json()
+            data = client.post('/api/score-word', json={
+                "gameId": game_data["gameId"],
+                "word": "DATES"
+            })
+            resp = data.get_json()
+
+        self.assertEqual({'result': 'ok'}, resp)
+
+    def test_api_not_on_board(self):
+        """Testing for a valid word that but is not on the board"""
+
+        with app.test_client() as client:
+            random.seed(1)
+            game_data_resp = client.post("/api/new-game")
+            game_data = game_data_resp.get_json()
+            data = client.post('/api/score-word', json={
+                "gameId": game_data["gameId"],
+                "word": "SOCCER"
+            })
+            resp = data.get_json()
+
+        self.assertEqual({'result': 'not-on-board'}, resp)
