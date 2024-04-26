@@ -57,30 +57,24 @@ def new_game():
 
 @app.post('/api/score-word')
 def check_valid_word():
-    """TODO: write out something here"""
+    """Checks if the word played is a valid word and is a valid word
+    on the board.
+    Returns a JSON result of: "not-word", "ok", or "not-on-board"
 
-    # TODO: change variable names, very confusing
-    current_game = request.json
-    game_id = current_game['gameId']
-    word = current_game['word'].upper()
-    game_instance = games[game_id]
+    Returns: JSON of {
+      result: "not-word"
+    }
+    """
 
-    is_valid_word = game_instance.is_word_in_word_list(word)
+    game_data = request.json
+    game_id = game_data['gameId']
+    word = game_data['word'].upper()
+    current_game = games[game_id]
 
-    is_on_board = game_instance.check_word_on_board(word)
-    print('!!!!!!!!!! WORD !!!!!!!!!!!!!!', word)
-    print('!!!!! VALID WORD!!!!!, ', is_valid_word)
-
-    answer = None
-    if not is_valid_word:
-        answer = 'not-word'
-    elif not is_on_board:
-        answer = 'not-on-board'
-    elif is_valid_word and is_on_board:
-        answer = 'ok'
+    result = current_game.check_valid_word_on_board(word)
 
     json_answer = {
-        'result': answer
+        'result': result
     }
 
     return jsonify(json_answer)
