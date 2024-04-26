@@ -40,9 +40,24 @@ BoggleGame Class
 
 - renders the board
 
-### New game '/api/new-game'
 
+Testing
+- test that it returns Json
+- that that it includes:
+(json.loads turns this into an object)
+    - game id
+    - list
+- check for dictionary
+
+### New game '/api/new-game'
+make sure this returns JSON
 - Starts new game, returns JSON
 - assigns board random id number
 - creates a game instance
 - Gives that instance random game id
+
+
+Testing for Valid Words Played on Board:
+- Using /api/new-game route to make a new game -- calling this to make a new game and get game id
+- Use the random seed on this call
+- Test all the possible results for /api/score-word. (not on board, ok, not word)
