@@ -97,6 +97,23 @@ class BoggleGame():
 
         return word_score
 
+    def check_valid_word_on_board(self, word):
+        """Checks if the word is a valid word on the game board
+        Returns a string result of 'not-word', 'not-on-board', 'ok'
+        """
+        is_valid_word = self.is_word_in_word_list(word)
+        is_on_board = self.check_word_on_board(word)
+
+        answer = None
+        if not is_valid_word:
+            answer = 'not-word'
+        elif not is_on_board:
+            answer = 'not-on-board'
+        elif is_valid_word and is_on_board:
+            answer = 'ok'
+
+        return answer
+
     def is_word_not_a_dup(self, word):
         """Return True/False if a word has not already been played."""
 
