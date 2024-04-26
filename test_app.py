@@ -1,4 +1,5 @@
 from unittest import TestCase
+import json
 
 from app import app, games
 
@@ -29,5 +30,12 @@ class BoggleAppTestCase(TestCase):
         """Test starting a new game."""
 
         with app.test_client() as client:
+            response = client.post("/api/new-game")
+            data = response.get_json()
             ...
             # write a test for this route
+            self.assertEqual(response.status_code, 200)
+            self.assertIsInstance(data, dict)
+            self.assertIsInstance(data["board"], list)
+            self.assertIsNotNone(data["gameId"])
+            self.assertIsNotNone(data["board"])
