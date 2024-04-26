@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, jsonify
 from uuid import uuid4
 
+
 from boggle import BoggleGame
 
 from flask_debugtoolbar import DebugToolbarExtension
@@ -36,4 +37,9 @@ def new_game():
     game = BoggleGame()
     games[game_id] = game
 
-    return None   # FIXME:
+    game_info = {
+        "gameId": str(game_id),
+        "board": game.board
+    }
+
+    return jsonify(game_info)
