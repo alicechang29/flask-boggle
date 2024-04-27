@@ -6,6 +6,7 @@ const $table = document.querySelector("table");
 
 let gameId;
 
+const BOGGLE_GAME_SIZE = 5;
 
 /** Start */
 
@@ -25,10 +26,25 @@ async function start() {
 /** Display board */
 
 function displayBoard(board) {
-  // TODO
-  // table.innerHTML = '';
-  // loop over board and create the DOM tr/td structure
+
+  $table.innerHTML = '';
+
+  for (let y = 0; y < BOGGLE_GAME_SIZE; y++) {
+    const $tr = document.createElement("tr");
+    for (let x = 0; x < BOGGLE_GAME_SIZE; x++) {
+      const $td = document.createElement("td");
+
+      $td.setAttribute("x-idx", x.toString());
+      $td.setAttribute("y-idx", y.toString());
+      $td.innerText = board[y][x];
+
+      $tr.appendChild($td);
+    }
+    $table.appendChild($tr);
+  }
 }
+
+
 
 
 /** Handle form submit
@@ -44,6 +60,7 @@ async function handleFormSubmit(evt) {
 
 // TODO: add an event listener for the form submission
 
+document.addEventListener(click);
 
 /** Submit word to API and return result from the response. */
 
