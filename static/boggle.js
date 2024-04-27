@@ -3,6 +3,7 @@ const $form = document.querySelector("#newWordForm");
 const $wordInput = document.querySelector("#wordInput");
 const $message = document.querySelector(".msg");
 const $table = document.querySelector("table");
+const $board = document.querySelector('.board');
 
 let gameId;
 
@@ -27,7 +28,7 @@ async function start() {
 
 function displayBoard(board) {
 
-  $table.innerHTML = '';
+  $board.innerHTML = '';
 
   for (let y = 0; y < BOGGLE_GAME_SIZE; y++) {
     const $tr = document.createElement("tr");
@@ -40,7 +41,7 @@ function displayBoard(board) {
 
       $tr.appendChild($td);
     }
-    $table.appendChild($tr);
+    $board.appendChild($tr);
   }
 }
 
@@ -60,7 +61,6 @@ async function handleFormSubmit(evt) {
 
 // TODO: add an event listener for the form submission
 
-document.addEventListener(click);
 
 /** Submit word to API and return result from the response. */
 
