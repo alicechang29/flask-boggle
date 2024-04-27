@@ -97,6 +97,7 @@ class BoggleGame():
 
         return word_score
 
+    # TODO: Possibly will need to move this into app.py under @app.post('/api/score-word')
     def check_valid_word_on_board(self, word):
         """Checks if the word is a valid word on the game board
         Returns a string result of 'not-word', 'not-on-board', 'ok'

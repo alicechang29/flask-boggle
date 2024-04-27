@@ -14,9 +14,6 @@ debug = DebugToolbarExtension(app)
 # The boggle games created, keyed by game id
 games = {}
 
-game = BoggleGame()
-games["1234"] = game
-
 
 @app.get("/")
 def homepage():
@@ -41,11 +38,12 @@ def new_game():
     games[game_id] = game
 
     game_info = {
+        # FIXME: this is already a string, can take out all of game_info
         "gameId": str(game_id),
         "board": game.board
     }
 
-    return jsonify(game_info)
+    return jsonify(game_info)  # TODO: gameId=game_id, board=game.board
 
 # post request
 # /api/score-word
@@ -60,8 +58,8 @@ def check_valid_word():
     """Checks if the word played is a valid word and is a valid word
     on the board.
     Returns a JSON result of: "not-word", "ok", or "not-on-board"
-
-    Returns: JSON of {
+#FIXME: add in what is taken in (game data)
+    Example of what is Returned: JSON of {
       result: "not-word"
     }
     """

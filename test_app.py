@@ -21,7 +21,7 @@ class BoggleAppTestCase(TestCase):
         with app.test_client() as client:
             response = client.get('/')
             html = response.get_data(as_text=True)
-            ...
+
             # test that you're getting a template
             self.assertEqual(response.status_code, 200)
             self.assertIn('<!-- Home page template for test-->', html)
@@ -32,7 +32,7 @@ class BoggleAppTestCase(TestCase):
         with app.test_client() as client:
             response = client.post("/api/new-game")
             data = response.get_json()
-            ...
+
             # write a test for this route
             self.assertEqual(response.status_code, 200)
             self.assertIsInstance(data, dict)
@@ -47,6 +47,8 @@ class BoggleAppTestCase(TestCase):
             random.seed(1)
             game_data_resp = client.post("/api/new-game")
             game_data = game_data_resp.get_json()
+            print("!!!!!TEST API INVALID WORD", game_data)
+
             data = client.post('/api/score-word', json={
                 "gameId": game_data["gameId"],
                 "word": "OOTY"
@@ -62,6 +64,8 @@ class BoggleAppTestCase(TestCase):
             random.seed(1)
             game_data_resp = client.post("/api/new-game")
             game_data = game_data_resp.get_json()
+            print("!!!!!TEST API VALID WORD", game_data)
+
             data = client.post('/api/score-word', json={
                 "gameId": game_data["gameId"],
                 "word": "DATES"
